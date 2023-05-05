@@ -8,14 +8,15 @@ async function createAuction(event, context) {
   const now = new Date();
 
   const auction = {
+    id: uuid(),
     title: title,
-    status: 201,
+    status: 'OPEN',
     createdAt: now.toISOString(),
 
   };
 
   await dynamodb.put({
-    TableName: 'AuctionsTable',
+    TableName: process.env.AUCTIONS_TABLE_NAME,
     Item: auction
   }).promise()
 
